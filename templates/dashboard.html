@@ -1,0 +1,96 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+    <!-- nav tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" id="gideon-tab" data-toggle="tab" href="#gideon" role="tab" aria-controls="gideon" aria-selected="false">Gideon</a>
+          </li>
+    </ul>
+<!-- end nav tabs -->
+<!-- tab content -->
+
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              
+              <div class="card-deck">
+                  
+              {% for i in APP_CONTENT["Home"] %}
+              
+              <!-- card -->
+              <div class="card" style="width: 18rem;">
+              <img src="/static/images/{{i[3]}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{ i[0] }}</h5>
+                <p class="card-text">{{ i[2] }}</p>
+                <a href="{{i[1]}}" class="btn btn-primary">{{i[0]}}</a>
+              </div>
+            </div>
+              
+              {% endfor %}
+                  
+              </div>
+              
+                  
+            </div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+              <div class="card-deck">
+                  
+              {% for i in APP_CONTENT["Profile"] %}
+              
+              <!-- card -->
+              <div class="card" style="width: 18rem;">
+              <img src="/static/images/{{i[3]}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{ i[0] }}</h5>
+                <p class="card-text">{{ i[2] }}</p>
+                <a href="{{i[1]}}" class="btn btn-primary">{{i[0]}}</a>
+              </div>
+            </div>
+              
+              {% endfor %}
+                  
+              </div>
+
+            </div>
+          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            
+              <div class="card-deck">
+                  {% for i in APP_CONTENT["Contact"] %}
+              
+              <!-- card -->
+              <div class="card" style="width: 18rem;">
+              <img src="/static/images/{{i[3]}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{ i[0] }}</h5>
+                <p class="card-text">{{ i[2] }}</p>
+                <a href="{{i[1]}}" class="btn btn-primary">{{i[0]}}</a>
+              </div>
+            </div>
+              
+              {% endfor %}  
+                  
+              </div>
+              
+            </div>
+            
+            <div class="tab-pane fade" id="gideon" role="tabpanel" aria-labelledby="gideon-tab">
+                <h1>Gideon</h1>
+                <img src="{{ url_for('static', filename='images/gideon.png') }}" >
+            </div>
+              
+            </div>
+    <!-- tab content end -->
+
+{% endblock %}
