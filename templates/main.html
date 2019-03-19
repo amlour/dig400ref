@@ -31,6 +31,17 @@
       });
       </script>               
 
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136595312-1">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-136595312-1');
+    </script>
+      
   </head>
   <body>
       <!-- Slap a Navbar on it!! -->
@@ -91,7 +102,7 @@
         </button>
       </div>
       <div class="modal-body">
-        You WILL log in. 
+        You can log in here! 
           
               <div class="container">
                     <br>
@@ -110,7 +121,7 @@
                     <p><code>{{ error }}</code></p>
             </div>
           <hr/>
-          <p>Hey man you should register. You can register <a href="/register/" style="text-decoration: none;">here.</a></p>
+          <p>Hey, you should register if you don't have an account. You can register <a href="/register/" style="text-decoration: none;">here!</a></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Go back</button>
