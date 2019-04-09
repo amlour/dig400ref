@@ -32,8 +32,14 @@
 
       gtag('config', 'UA-136595312-1');
     </script>  
+    
+    <!-- Custom CSS -->
+      <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">  
       
-    <!--  -->           
+    <!-- Google Material Icons -->   
+      
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
   </head>
   <body>
@@ -63,7 +69,11 @@
         {% else %}
         
       <li class="nav-item bg-dark">
-        <a class="nav-link" href="/login/" data-toggle="modal" data-target="#exampleModalCenter">Login</a>
+        <a class="nav-link" href="/login/" data-toggle="modal" data-target="#exampleModalCenter">
+            
+            <i class="material-icons">account_circle</i>
+            
+            Login</a>
       </li>
         {% endif %}
         
@@ -76,7 +86,9 @@
     </ul>
   </div>
 </nav>
-<!-- END NAVBAR -->     
+<!-- END NAVBAR -->
+      
+
       
 <!--MODAL STUFF -->
       

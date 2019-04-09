@@ -1,17 +1,31 @@
-from flask import Flask, render_template, flash, request, url_for, redirect, session, make_response
+from flask import Flask, render_template, flash, request, url_for, redirect, session, make_response, send_file
 from wtforms import Form, BooleanField, TextField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from pymysql import escape_string as thwart
 from functools import wraps
 from datetime import datetime, timedelta
 import gc
-import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+import os, sys; 
+
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+
+from werkzeug.utils import secure_filename
+
 from content import Content
 from db_connect import Connection
 
 APP_CONTENT = Content()
 
+UPLOAD_FOLDER = "/var/www/FlaskApp/FlaskApp/uploads"
+
+ALLOWED_EXTENSIONS = set(["txt", "png", "jpg", "jpeg", "gif"])
+
 app = Flask(__name__)
+
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".",1)[1].lower() in ALLOWED_EXTENSIONS
 
 def login_required(f):
     @wraps(f)
@@ -21,6 +35,7 @@ def login_required(f):
         else:
             flash("Please log in.")
             return redirect(url_for('login'))
+    return wrap
         
 def login_test(f):
     @wraps(f)
@@ -65,8 +80,9 @@ def main():
     return render_template("main.html", error = error)
 
 
-@login_required
+
 @app.route("/dashboard/")
+@login_required
 def dashboard():
     return render_template("dashboard.html", APP_CONTENT = APP_CONTENT)
 
@@ -84,6 +100,7 @@ class RegistrationForm(Form):
 
 
 @app.route("/logout/")
+@login_required
 def logout():
     session.clear()
     flash("You've been logged out.")
@@ -126,7 +143,7 @@ def register_page():
                 
                 return redirect(url_for('dashboard'))
         return render_template("register.html", form = form)
-            
+        
             
     except Exception as e:
         return(str(e)) #this is for debugging only remove later
@@ -135,15 +152,21 @@ def register_page():
 """Janky code goes here lol """
 
 @app.route("/secret/")
-@login_test
-def test():
-    """
+@login_required
+def secret():
+    try:
+        #the python goes here!
+        
+        def function_i_guess():
+            output = ["DIGIT 400 is good", "Python, Java, PHP, SQL, C++", "<p><strong>hello world</strong></p>", 42, "42"]
+            return output
+        
+        output = function_i_guess()
     
-    Janky python space
-    
-    """
-    
-    return render_template("secret.html", test=test )
+        return render_template("secret.html", output = output)
+    except Exception as e:
+        return str(e)
+
 
 """ janky code ends here """
 
@@ -164,6 +187,32 @@ def sitemap():
         return(str(e))
 
 
+@app.route("/uploads/", methods=["GET","POST"])
+@login_required
+def upload_file():
+    try:
+        if request.method == "POST":
+            if file not in request.files:
+                flash("No file detected")
+                return redirect(request.url)
+            file = request.files["file"]
+            
+            if file.filename == "":
+                flash("No selected file")
+                return redirect(request.url)
+            
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+                flash("Uploaded " + str(filename) +" successfully!")
+                return render_template("uploads.html", filename = filename)
+        return render_template("uploads.html")
+                      
+
+        
+    except Exception as e:
+        return str(e) #remove for production
+    
 ## Error Handlers
 
 @app.errorhandler(404)

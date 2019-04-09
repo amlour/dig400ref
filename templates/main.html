@@ -8,15 +8,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <!-- some style -->
-    <style>
-        #bg
-            {   
-                width: 100%;
-                height: 100%;
-                
-            }
-    </style>
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/wavicon.ico') }}">
     
@@ -41,6 +32,15 @@
 
       gtag('config', 'UA-136595312-1');
     </script>
+    
+    <!-- Custom CSS -->
+      <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
+      
+      
+      <!-- Google Material Icons -->
+      
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
       
   </head>
   <body>
@@ -58,7 +58,11 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav bg-dark">
       <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">
+            
+            Home 
+            
+            <span class="sr-only">(current)</span></a>
       </li>
         {% if session.logged_in %}
       <li class="nav-item bg-dark">
@@ -66,7 +70,11 @@
       </li>
         {% else %}
       <li class="nav-item bg-dark">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">Login</a>
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">
+            Login
+            <i class="material-icons" style="margin-top: 2px">account_circle</i>
+            
+            </a>
       </li>
         {% endif %}
         
@@ -87,10 +95,10 @@
           </video>
 -->
 
-        <img id="bg" src="{{ url_for('static', filename='images/h2o.jpg') }}">
+<!-- <img id="bg" src="{{ url_for('static', filename='images/h2o.jpg') }}"> -->
       
 <!--MODAL STUFF -->
-      
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -131,6 +139,7 @@
   </div>
 </div>
 <!-- END MODAL -->
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
