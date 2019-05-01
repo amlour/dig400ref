@@ -1,11 +1,32 @@
 from flask import Flask, render_template, flash, request, url_for, redirect, session, make_response, send_file
 from wtforms import Form, BooleanField, TextField, PasswordField, validators
+import sqlite3 as lite
 from passlib.hash import sha256_crypt
 from pymysql import escape_string as thwart
 from functools import wraps
 from datetime import datetime, timedelta
 import gc
 import os, sys; 
+
+DATABASE = "/var/www/FlaskApp/FlaskApp/database_example/database_example.db"
+
+def message(user_name,message):
+    con = lite.connect(DATABASE)
+    c = con.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS input_log (id INTEGER PRIMARY KEY AUTOINCREMENT, user_name TEXT, message TEXT)")
+    c.execute("INSERT INTO input_log (user_name,message) VALUES (?,?)",(user_name, message))
+    con.commit()
+    c.close()
+    return
+
+def contents():
+    con = lite.connect(DATABASE)
+    c = con.cursor()
+    c.execute("SELECT * FROM input_log")
+    rows = c.fetchall() # there is also fetchone() this returns a list
+    con.close()
+    return reversed(rows)
+
 
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
@@ -22,6 +43,7 @@ ALLOWED_EXTENSIONS = set(["txt", "png", "jpg", "jpeg", "gif"])
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'soveryverysecret'
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def allowed_file(filename):
@@ -168,6 +190,7 @@ def secret():
         return str(e)
 
 
+    
 """ janky code ends here """
 
 @app.route('/sitemap.xml/', methods=["GET"])
@@ -192,27 +215,53 @@ def sitemap():
 def upload_file():
     try:
         if request.method == "POST":
-            if file not in request.files:
-                flash("No file detected")
+            if "file" not in request.files:
+                flash("No file part")
                 return redirect(request.url)
             file = request.files["file"]
             
             if file.filename == "":
                 flash("No selected file")
                 return redirect(request.url)
-            
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-                flash("Uploaded " + str(filename) +" successfully!")
-                return render_template("uploads.html", filename = filename)
+                flash("File "+ str(filename) +" upload successful!")
+                return render_template('uploads.html', filename = filename)
         return render_template("uploads.html")
-                      
-
-        
     except Exception as e:
-        return str(e) #remove for production
+        return str(e) # remove for production
+
+@app.route("/download/")
+@login_required
+def download():
+    try:
+        return send_file("/var/www/FlaskApp/FlaskApp/uploads/dog.jpeg", attachment_filename="lionlogo.png")
+    except Exception as e:
+        return str(e)
+
+ 
+
+@app.route("/messages/", methods=["GET", "POST"])
+@login_required
+def message_page():
+    try:
+        content = ""
+        if request.method == "POST":
+            data = thwart(request.form['message'])
+            name = session['username']
+            message(name,data)
+
+            content = contents()
+            flash("Thanks for the message.")
+            return render_template("message.html", content = content)
+
+        content = contents()
+        return render_template("message.html", content = content)
     
+    except Exception as e:
+        return str(e)
+
 ## Error Handlers
 
 @app.errorhandler(404)
@@ -227,5 +276,5 @@ def method_not_allowed(e):
 def int_server_error(e):
     return render_template("500.html", error = e)
 
-if __name__ == "__main__":
-	app.run(debug = True)
+if __name__ == '__main__':
+    app.run(debug=True)

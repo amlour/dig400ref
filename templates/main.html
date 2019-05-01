@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/wavicon.ico') }}">
     
       
-    <title>(´∇｀)</title>
+    <title>Lion's Pride</title>
       
     <!-- Modal JS Request **LAST IN HEAD (FOR NOW)**-->
       
@@ -39,67 +39,96 @@
       
       <!-- Google Material Icons -->
       
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
       
   </head>
   <body>
+      
+      <div id="bg">
+  <img src="{{ url_for('static', filename='images/pride.jpg') }}" alt="" id="bg-img">
+    </div>
+
+      
+      
       <!-- Slap a Navbar on it!! -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">
-    <img src="{{ url_for('static', filename='images/Water_wave.png') }}" width="40" height="40" class="d-inline-block align-top" alt="Main logo for DIGIT 400">
-  </a>
-<a class="navbar-brand" href="/">
-    DIGIT 400 
-</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav bg-dark">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">
-            
-            Home 
-            
-            <span class="sr-only">(current)</span></a>
-      </li>
-        {% if session.logged_in %}
-      <li class="nav-item bg-dark">
-        <a class="nav-link" href="/dashboard">Dashboard</a>
-      </li>
-        {% else %}
-      <li class="nav-item bg-dark">
-        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">
-            Login
-            <i class="material-icons" style="margin-top: 2px">account_circle</i>
-            
+<div class="container-fluid">
+<nav class="navbar navbar-dark navbar-brand">
+      <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='images/lionlogo.png') }}" width="50" height="50" class="d-inline-block align-top" alt="Main logo for Lion's Pride">
             </a>
-      </li>
+          <a class="navbar-brand" href="/" id="brand-text"><h1>Lion's Pride</h1></a>
+                <div class="container">
+				<ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">
+                            Home 
+                            <span class="sr-only">(current)</span>
+                            <i class="inline-icon material-icons md-dark" style="margin-top: 2px">home</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about" data-toggle="modal" data-target="#aboutModal">
+                            About
+                            <i class="inline-icon material-icons md-dark" style="margin-top: 2px">favorite</i>
+                        </a>
+                    </li>
+                        {% if session.logged_in %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard
+                        <i class="inline-icon material-icons md-dark" style="margin-top: 2px">dashboard</i>
+                        </a>
+                    </li>
+                        {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">
+                            Login
+                        <i class="inline-icon material-icons md-dark" style="margin-top: 2px">account_circle</i>
+                        </a>
+                    </li>
         {% endif %}
-        
          {% if session.logged_in %}
-      <li class="nav-item bg-dark">
-        <a class="nav-link" href="/logout/">Logout</a>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout/">Logout <i class="inline-icon material-icons md-dark" style="margin-top: 2px">account_circle</i></a>
       </li>
         {% endif %}
     </ul>
-  </div>
+    </div>
+</div>
 </nav>
+
 <!-- END NAVBAR -->
-
-<!-- dance space cat background: this is being commented out because it is a bit much, but the code may come in handy -->
-<!--   
-          <video autoplay style="width: 100%" muted>
-          <source src="/static/videos/space_cats.mp4" type="video/mp4">
-          </video>
--->
-
-<!-- <img id="bg" src="{{ url_for('static', filename='images/h2o.jpg') }}"> -->
       
 <!--MODAL STUFF -->
 
 <!-- Modal -->
+
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">About this Site</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>
+          This website was made to support and provide a space for Penn State's LGBTQA+ students.
+          </h5>
+          <p>
+          Here you can browse this demo and check out the dashboard, profile, forums, and messaging pages.
+          </p>
+          <h5>Wow, check it out. Here's more stuff.</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend lorem orci, id pellentesque ipsum cursus a. Curabitur at urna massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam viverra quis mi vitae pellentesque. Etiam diam erat, rhoncus vel sem sed, lobortis pulvinar ipsum. Aenean id ligula ullamcorper, pellentesque eros in, malesuada erat. Ut quis dapibus velit. Sed eu neque eget ipsum viverra interdum. Quisque molestie ligula enim, eu sagittis mi blandit sit amet. In ex urna, ullamcorper et erat quis, luctus sollicitudin erat. Nam tincidunt pellentesque pretium. Quisque tempus eu mi eleifend elementum. Ut nec odio id nisi maximus lobortis a sit amet ex. Nulla vestibulum odio quis urna auctor, venenatis malesuada neque suscipit. Nunc bibendum, lectus sit amet fermentum imperdiet, lorem justo fermentum massa, et vulputate eros arcu elementum dolor. </p>
+            </div>
+          <hr/>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -142,6 +171,16 @@
 
 
     <!-- Optional JavaScript -->
+      <script>
+          
+          const el = document.querySelector("#module");
+
+            el.addEventListener("mousemove", (e) => {
+              el.style.backgroundPositionX = -e.offsetX + "px";
+              el.style.backgroundPositionY = -e.offsetY + "px";
+            });
+          
+      </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
