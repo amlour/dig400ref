@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<h1>User Profile Page</h1>
+
+  <div class="container-fluid" style="background-color: #ffffff">
+      <div class="row">
+    <div class="col">
+        <img src="{{ url_for('static', filename='images/kitty.png') }}" style="height: 60%; outline: inherit; outline-color: black;">
+        <p>This is a sample user profile picture. </p>
+      </div>
+      <div class="col-7">
+          <h2 style="margin-top: 50px; color: #46484a">Username goes here </h2>
+          <h4 style="margin-top: 20px; color: #46484a">Nickname goes here </h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend lorem orci, id pellentesque ipsum cursus a. Curabitur at urna massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam viverra quis mi vitae pellentesque. Etiam diam erat, rhoncus vel sem sed, lobortis pulvinar ipsum. Aenean id ligula ullamcorper, pellentesque eros in, malesuada erat. Ut quis dapibus velit. Sed eu neque eget ipsum viverra interdum. Quisque molestie ligula enim, eu sagittis mi blandit sit amet. In ex urna, ullamcorper et erat quis, luctus sollicitudin erat. Nam tincidunt pellentesque pretium. Quisque tempus eu mi eleifend elementum.</p>
+      </div>
+  </div>
+
+
+
+{% endblock %}

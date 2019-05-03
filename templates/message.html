@@ -2,24 +2,32 @@
 
 {% block body %}
 
+
     <div class="container">
         <br>
         <h4>Message</h4>
         <br>
         <form action="#" class="form-inline" method="post">
-            <input type="text" class="form-control" placeholder="Leave a message..." name="message" value="{{request.form.message}}">
-            
-            <input class="btn btn-secondary" type="submit" value="Submit">
+           
+            <input type="text" class="form-control" placeholder="Leave a message.." name="message" value="{{request.form.message}}">
+            &nbsp;
+            <input class="btn btn-primary" type="submit" value="Submit">
+           
         </form>
         <br>
-     
-        {% for idx, name, message in content %}
-            <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">{{name}} says...</h4>
+        <ul>
+            {% for inx, name, message in content %}
+           
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <h4>{{name}} says</h4>
                 <p>{{message}}</p>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <hr>
-        {% endfor %}
+
+            {% endfor %}
+        </ul>
     </div>
 
 {% endblock %}

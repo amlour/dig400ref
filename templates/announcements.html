@@ -1,0 +1,27 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<h1>Announcements</h1>
+<h3>Updates from the team</h3>
+
+<br/>
+<br/>
+
+<div class="container-fluid">
+
+    {% for i in APP_CONTENT["Announcements"] %}
+    
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-4">{{i[0]}}</h1>
+      <h3 class="display-4">{{i[1]}}</h3>
+    <p class="lead" style="color: #46484a">{{i[2]}}</p>
+  </div>
+</div>
+
+    {% endfor %}
+    
+</div>
+
+{% endblock %}

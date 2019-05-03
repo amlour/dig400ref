@@ -8,6 +8,24 @@ from datetime import datetime, timedelta
 import gc
 import os, sys; 
 
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+
+from werkzeug.utils import secure_filename
+
+from content import Content
+from db_connect import Connection
+
+APP_CONTENT = Content()
+
+UPLOAD_FOLDER = "/var/www/FlaskApp/FlaskApp/uploads"
+
+ALLOWED_EXTENSIONS = set(["txt", "png", "jpg", "jpeg", "gif"])
+
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'soveryverysecret'
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
 DATABASE = "/var/www/FlaskApp/FlaskApp/database_example/database_example.db"
 
 def message(user_name,message):
@@ -27,49 +45,18 @@ def contents():
     con.close()
     return reversed(rows)
 
-
-sys.path.append(os.path.dirname(os.path.realpath(__file__)))
-
-from werkzeug.utils import secure_filename
-
-from content import Content
-from db_connect import Connection
-
-APP_CONTENT = Content()
-
-UPLOAD_FOLDER = "/var/www/FlaskApp/FlaskApp/uploads"
-
-ALLOWED_EXTENSIONS = set(["txt", "png", "jpg", "jpeg", "gif"])
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'soveryverysecret'
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".",1)[1].lower() in ALLOWED_EXTENSIONS
-
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            flash("Please log in.")
-            return redirect(url_for('login'))
+            flash('You need to login first.')
+            return redirect(url_for('main'))
     return wrap
-        
-def login_test(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash("Please log in.")
-            return redirect(url_for('login'))
-    return decorated_function
-    
-            
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS  
 
 @app.route("/", methods = ["GET","POST"])
 def main():
@@ -107,6 +94,50 @@ def main():
 @login_required
 def dashboard():
     return render_template("dashboard.html", APP_CONTENT = APP_CONTENT)
+
+@app.route("/profile/")
+def profile():
+    return render_template("profile.html")
+
+@app.route("/contact/")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/tos/")
+def tos():
+    return render_template("tos.html")
+
+@app.route("/resources/")
+def resources():
+    return render_template("resources.html")
+
+@app.route("/announcements/")
+def announcements():
+    return render_template("announcements.html", APP_CONTENT = APP_CONTENT)
+
+@app.route("/message/", methods=["GET", "POST"])
+@login_required
+def message_page():
+    try:
+        content = ""
+        if request.method == "POST":
+           
+            data = thwart(request.form['message'])
+           
+            name = session['username']
+           
+            message(name, data)
+           
+            content = contents()
+            flash("Thanks for your message!")
+            return render_template("message.html", content = content)
+       
+        content = contents()
+        return render_template("message.html", content = content)
+   
+    except Exception as e:
+        return str(e) # remember to remove! For debugging only!
+
 
 @app.route("/login/", methods = ["GET", "POST"])
     
@@ -170,6 +201,8 @@ def register_page():
     except Exception as e:
         return(str(e)) #this is for debugging only remove later
     return("Connected.")
+
+
 
 """Janky code goes here lol """
 
@@ -236,29 +269,7 @@ def upload_file():
 @login_required
 def download():
     try:
-        return send_file("/var/www/FlaskApp/FlaskApp/uploads/dog.jpeg", attachment_filename="lionlogo.png")
-    except Exception as e:
-        return str(e)
-
- 
-
-@app.route("/messages/", methods=["GET", "POST"])
-@login_required
-def message_page():
-    try:
-        content = ""
-        if request.method == "POST":
-            data = thwart(request.form['message'])
-            name = session['username']
-            message(name,data)
-
-            content = contents()
-            flash("Thanks for the message.")
-            return render_template("message.html", content = content)
-
-        content = contents()
-        return render_template("message.html", content = content)
-    
+        return send_file("/var/www/FlaskApp/FlaskApp/uploads/dog.jpeg", attachment_filename="doggie.jpeg")
     except Exception as e:
         return str(e)
 

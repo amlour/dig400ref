@@ -11,7 +11,8 @@ def Content():
         
         "Contact":[["Contact","/contact/","Contact the team",""],], 
         
-        "Announcements":[["Update 1","04/19/2019","Hello, this is a test for the announcements."],
-                        ["Update 2","04/23/2019","Hello, this is a test for the announcements. It's presentation day!"]]
+        "Announcements":[["Update 3","05/03/2019","Today, May 3rd is the due date!"],
+                        ["Update 2","04/23/2019","Hello, this is a test for the announcements. It's presentation day!"],
+                        ["Update 1","04/19/2019","Hello, this is a test for the announcements."],]
     }
     return APP_CONTENT

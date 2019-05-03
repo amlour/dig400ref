@@ -44,12 +44,33 @@
   </head>
   <body>
       
-      <div id="bg">
+<div id="bg">
   <img src="{{ url_for('static', filename='images/pride.jpg') }}" alt="" id="bg-img">
-    </div>
+    </div> 
 
-      
-      
+<div class="container-fluid" style="width:75%;margin-top:3%;">
+    
+    {% with messages = get_flashed_messages() %}
+    
+        {% if messages %}
+    
+            {% for message in messages %}
+                
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+    
+            {% endfor %}
+    
+        {% endif %}
+    
+    {% endwith %}
+
+</div>
+
       <!-- Slap a Navbar on it!! -->
 <div class="container-fluid">
 <nav class="navbar navbar-dark navbar-brand">
@@ -71,6 +92,12 @@
                         <a class="nav-link" href="#about" data-toggle="modal" data-target="#aboutModal">
                             About
                             <i class="inline-icon material-icons md-dark" style="margin-top: 2px">favorite</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/resources/">
+                            Quick Links
+                            <i class="inline-icon material-icons md-dark" style="margin-top: 2px">book</i>
                         </a>
                     </li>
                         {% if session.logged_in %}
@@ -107,20 +134,20 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">About this Site</h5>
+        <h5 class="modal-title" id="bl exampleModalCenterTitle" style="color: #696b6e;">About this Site</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <h5>
+      <div class="modal-body bl">
+        <h5 id="bl">
           This website was made to support and provide a space for Penn State's LGBTQA+ students.
           </h5>
-          <p>
+          <p id="bl">
           Here you can browse this demo and check out the dashboard, profile, forums, and messaging pages.
           </p>
-          <h5>Wow, check it out. Here's more stuff.</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend lorem orci, id pellentesque ipsum cursus a. Curabitur at urna massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam viverra quis mi vitae pellentesque. Etiam diam erat, rhoncus vel sem sed, lobortis pulvinar ipsum. Aenean id ligula ullamcorper, pellentesque eros in, malesuada erat. Ut quis dapibus velit. Sed eu neque eget ipsum viverra interdum. Quisque molestie ligula enim, eu sagittis mi blandit sit amet. In ex urna, ullamcorper et erat quis, luctus sollicitudin erat. Nam tincidunt pellentesque pretium. Quisque tempus eu mi eleifend elementum. Ut nec odio id nisi maximus lobortis a sit amet ex. Nulla vestibulum odio quis urna auctor, venenatis malesuada neque suscipit. Nunc bibendum, lectus sit amet fermentum imperdiet, lorem justo fermentum massa, et vulputate eros arcu elementum dolor. </p>
+          <h5 id="bl">Wow, check it out. Here's more stuff.</h5>
+          <p id="bl">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend lorem orci, id pellentesque ipsum cursus a. Curabitur at urna massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam viverra quis mi vitae pellentesque. Etiam diam erat, rhoncus vel sem sed, lobortis pulvinar ipsum. Aenean id ligula ullamcorper, pellentesque eros in, malesuada erat. Ut quis dapibus velit. Sed eu neque eget ipsum viverra interdum. Quisque molestie ligula enim, eu sagittis mi blandit sit amet. In ex urna, ullamcorper et erat quis, luctus sollicitudin erat. Nam tincidunt pellentesque pretium. Quisque tempus eu mi eleifend elementum. Ut nec odio id nisi maximus lobortis a sit amet ex. Nulla vestibulum odio quis urna auctor, venenatis malesuada neque suscipit. Nunc bibendum, lectus sit amet fermentum imperdiet, lorem justo fermentum massa, et vulputate eros arcu elementum dolor. </p>
             </div>
           <hr/>
       </div>
@@ -168,19 +195,16 @@
   </div>
 </div>
 <!-- END MODAL -->
+      
+<footer class="footer">
+      <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+      </div>
+    </footer>      
 
 
     <!-- Optional JavaScript -->
-      <script>
-          
-          const el = document.querySelector("#module");
 
-            el.addEventListener("mousemove", (e) => {
-              el.style.backgroundPositionX = -e.offsetX + "px";
-              el.style.backgroundPositionY = -e.offsetY + "px";
-            });
-          
-      </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

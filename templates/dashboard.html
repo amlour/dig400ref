@@ -1,37 +1,41 @@
 {% extends "header.html" %}
 
 {% block body %}
+<div class="container">
 
-    <!-- nav tabs -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <div class="container-fluid" style="position: relative; z-index: 1">
+    <h1 style="color: #ffffff;">Dashboard</h1>
+    </div>
+    <br/>
+    <!-- Tabbed Pills -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="position: relative; z-index: 1">
           <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home<i class="inline-icon material-icons md-dark" style="margin-top: 2px">home</i></a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home <i class="inline-icon2 material-icons md-dark" style="margin-top: 2px">home</i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile<i class="inline-icon material-icons md-dark" style="margin-top: 2px">account_circle</i></a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile <i class="inline-icon2 material-icons md-dark" style="margin-top: 2px">account_circle</i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Forum<i class="inline-icon material-icons md-dark" style="margin-top: 2px">message</i></a>
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact <i class="inline-icon2 material-icons md-dark" style="margin-top: 2px">message</i></a>
           </li>
         <li class="nav-item">
-            <a class="nav-link" role="tab" href="/messages/">Messaging<i class="inline-icon material-icons md-dark" style="margin-top: 2px">message</i></a>
+            <a class="nav-link" role="tab" data-toggle="tab" href="#message" role="tab" aria-controls="message" aria-selected="false">Messaging <i class="inline-icon2 material-icons md-dark" style="margin-top: 2px">message</i></a>
           </li>
     </ul>
-<!-- end nav tabs -->
-<!-- tab content -->
-
+    
+<div class="container-fluid">
+    <br/>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-              
               <div class="card-deck">
                   
               {% for i in APP_CONTENT["Home"] %}
               
-              <!-- card -->
+
               <div class="card" style="width: 18rem;">
               <img src="/static/images/{{i[3]}}" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">{{ i[0] }}</h5>
+                <h5 class="card-title" style="color: #696b6e">{{ i[0] }}</h5>
                 <p class="card-text">{{ i[2] }}</p>
                 <a href="{{i[1]}}" class="btn btn-primary">{{i[0]}}</a>
               </div>
@@ -49,11 +53,11 @@
                   
               {% for i in APP_CONTENT["Profile"] %}
               
-              <!-- card -->
+ 
               <div class="card" style="width: 18rem;">
               <img src="/static/images/{{i[3]}}" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">{{ i[0] }}</h5>
+                <h5 class="card-title" style="color: #696b6e">{{ i[0] }}</h5>
                 <p class="card-text">{{ i[2] }}</p>
                 <a href="{{i[1]}}" class="btn btn-primary">{{i[0]}}</a>
               </div>
@@ -69,11 +73,11 @@
               <div class="card-deck">
                   {% for i in APP_CONTENT["Contact"] %}
               
-              <!-- card -->
+          
               <div class="card" style="width: 18rem;">
               <img src="/static/images/{{i[3]}}" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">{{ i[0] }}</h5>
+                <h5 class="card-title" style="color: #696b6e">{{ i[0] }}</h5>
                 <p class="card-text">{{ i[2] }}</p>
                 <a href="{{i[1]}}" class="btn btn-primary">{{i[0]}}</a>
               </div>
@@ -85,12 +89,12 @@
               
             </div>
             
-            <div class="tab-pane fade" id="gideon" role="tabpanel" aria-labelledby="gideon-tab">
+            <div class="tab-pane fade" id="message" role="tabpanel" aria-labelledby="message-tab">
                 <h1>Gideon</h1>
                 <img src="{{ url_for('static', filename='images/gideon.png') }}" >
             </div>
               
             </div>
-    <!-- tab content end -->
+        </div>
 
 {% endblock %}

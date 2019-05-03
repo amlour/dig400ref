@@ -12,7 +12,7 @@
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
       
-    <title>(´∇｀)</title>
+    <title>Lion's Pride</title>
       
     <!-- Modal JS Request **LAST IN HEAD (FOR NOW)**-->
       
@@ -43,50 +43,25 @@
 
   </head>
   <body>
-      
-      <!-- Slap a Navbar on it!! -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">
-    <img src="{{ url_for('static', filename='images/lionlogo.png') }}" width="40" height="40" class="d-inline-block align-top" alt="Main logo for DIGIT 400">
-  </a>
-<a class="navbar-brand" href="/">
-    Lion's Pride
-</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <div id="bg">
+  <img src="{{ url_for('static', filename='images/pride.jpg') }}" alt="" id="bg-img">
+    </div>
+
+<nav class="navbar navbar-dark navbar-brand" style="position: relative; z-index: 1; ">
+    <!-- A note- z-index is probably being misused here, but all other solutions did not work, so this was the last resort -->
+  <a class="navbar-brand" href="/">Lion's Pride</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav bg-dark">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home <i class="inline-icon material-icons">home</i><span class="sr-only">(current)</span></a>
-      </li>
-        {% if session.logged_in %}
-        
-      <li class="nav-item bg-dark">
-        <a class="nav-link" href="/dashboard">Dashboard <i class="inline-icon material-icons">dashboard</i></a>
-      </li>
-        
-        {% else %}
-        
-      <li class="nav-item bg-dark">
-        <a class="nav-link" href="/login/" data-toggle="modal" data-target="#exampleModalCenter">
-            Login <i class="inline-icon material-icons md-dark" style="margin-top: 2px">account_circle</i></a>
-      </li>
-        {% endif %}
-        
-        {% if session.logged_in %}
-      <li class="nav-item bg-dark">
-        <a class="nav-link" href="/logout/">Logout<i class="inline-icon material-icons md-dark" style="margin-top: 2px">account_circle</i></a>
-      </li>
-        {% endif %}
-        
-    </ul>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span> <i class="inline-icon material-icons md-dark" style="margin-top: 2px">home</i> </a>
+      <a class="nav-item nav-link" href="/dashboard/">Dashboard <i class="inline-icon material-icons md-dark" style="margin-top: 2px">dashboard</i> </a>
+      <a class="nav-item nav-link" href="/logout/">Logout <i class="inline-icon material-icons md-dark" style="margin-top: 2px">account_circle</i> </a>
+    </div>
   </div>
 </nav>
-<!-- END NAVBAR -->
-      
-
-      
+          
 <!--MODAL STUFF -->
       
 <!-- Modal -->
@@ -128,6 +103,7 @@
     </div>
   </div>
 </div>
+
 <!-- END MODAL -->
 
 <!-- FLASHES GO HERE -->
@@ -160,18 +136,18 @@
 
 <!-- content goes here -->
       
-      <div class="container-fluid" style="min-height: 100%">
+      <div class="container-fluid" style="min-height: 100%; position: relative; z-index: 1;">
           
           {% block body %}
           
           {% endblock %}
-          
       </div>
 
 <!-- END TEMPLATE CONTENT --> 
       
 <!-- you can put a footer here... -->
-      
+
+        
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
